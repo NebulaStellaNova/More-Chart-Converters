@@ -75,6 +75,7 @@ class ChartEditor extends Module {
 					var cneLink = new Link();
 					cneLink.text = "Codename Engine";
 					cneLink.id = "splashImportChartCodename";
+					cneLink.tooltip = "Nova Chart Converters.";
 					cneLink.onClick = ()->{
 						//i.findComponent("splashImportChartLegacy").rootComponent.close();
 						var daDialog = RuntimeComponentBuilder.build(Paths.ui("dialogs/cne/upload-meta"));
