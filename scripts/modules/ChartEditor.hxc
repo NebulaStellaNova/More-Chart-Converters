@@ -430,6 +430,8 @@ class ChartEditor extends Module {
         });
     }
 
+	var dropDown;
+
 	function chooseMod() {
 		var daDialog = RuntimeComponentBuilder.build(Paths.ui("dialogs/cne/choose-mod"));
 		daDialog.zIndex = 1000;
@@ -439,7 +441,7 @@ class ChartEditor extends Module {
 		daDialog.findComponent("dialogContinue").onClick = ()->{
 			newNotification("Processing Chart.", "Processing Chart, Please Wait.", NotificationType.Info);
 			for (i in PolymodHandler.getAllMods()) {
-				if (i.title + " (" + i.id + ")" == daDialog.findComponent("modFolderList").selectedItem.text) {
+				if (i.title + " (" + i.id + ")" == dropDown.text) {
 					var success = processData(i.id);
 					if (success) {
 						newNotification("Chart Converted!!", "Your chart has converted, please Hot Reload or Restart the game to access the chart in-game.", NotificationType.Success);
@@ -466,6 +468,7 @@ class ChartEditor extends Module {
 			daDialog.hide();
 		} */
 		FlxG.state.add(daDialog);
+		dropDown = daDialog.findComponent("modFolderList");
 	}
 
 	function aliasEvent(eventName:String) {
