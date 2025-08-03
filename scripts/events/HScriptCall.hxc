@@ -1,0 +1,43 @@
+import funkin.play.PlayState;
+import funkin.play.event.SongEvent;
+
+import funkin.modding.module.Module;
+import funkin.modding.module.ModuleHandler;
+
+import funkin.play.character.CharacterDataParser;
+import funkin.play.character.CharacterType;
+import funkin.play.components.HealthIcon;
+
+class HScriptCall extends SongEvent {
+
+    public override function handleEvent(data) {
+        if (PlayState.instance == null || PlayState.instance.currentStage == null) return;
+        /* switch(data.value.call) {
+            
+        } */
+    }
+
+    public function getEventSchema() {
+        return [
+            {
+                name: "call",
+                title: "Function Name",
+                type: "string",
+            },
+            {
+                name: "params",
+                title: "Funciton Parameters (p1, p2)",
+                defaultValue: "bf",
+                type: "string",
+            }
+        ];
+    }
+
+    public function getTitle() {
+        return "HScript Call";
+    }
+    
+    public function new() {
+        super('HScriptCall');
+    }
+}

@@ -185,7 +185,7 @@ class ChartEditor extends Module {
 		currentDifficulty = 0;
 		var index = 0;
 		for (i in parsed.difficulties) {
-			parsed.difficulties[index] == i.toLowerCase();
+			parsed.difficulties[index] = i.toLowerCase();
 			
 			index++;
 		}
@@ -472,16 +472,36 @@ class ChartEditor extends Module {
 	}
 
 	function aliasEvent(eventName:String) {
-		eventName = StringTools.replace(eventName, "Camera Movement", "FocusCamera");
+		var aliases = [
+			"Camera Movement" => "FocusCamera",
+			"Play Animation" => "PlayAnimation",
+			"Change Character" => "ChangeCharacter",
+			"HScript Call" => "HScriptCall"
+		];
+		for (i in aliases.keys()) {
+			eventName = StringTools.replace(eventName, i, aliases.get(i));
+		}
 		return eventName;
 	}
 
 	function eventParams(eventName:String, params:Array) {
-		switch (eventName) {
-			case "Camera Movement":
-				return {
+		return [
+			"Camera Movement" => {
 					char: params[0] == 0 ? 1 : params[0] == 1 ? 0 : params[0]
-				}
-		}
+			},
+			"Change Character" => {
+				character: ["dad", "bf", "gf"][params[0]],
+				newchar: params[1]
+			},
+			"Play Animation" => {
+				target: ["dad", "bf", "gf"][params[0]],
+				anim: params[1],
+				force: params[2]+'' == "true"
+			},
+			"HScript Call" => {
+				call: params[0],
+				params: params[1]
+			}
+		].get(eventName);
 	}
 }
