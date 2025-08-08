@@ -6,6 +6,7 @@
 		</box>
 		<hbox>
 			<button text="Cancel" id="dialogCancel" />
+			<button text="Skip (No Instrumental)" id="dialogSkip"/>
 			<spacer width="100%" />
 		</hbox>
 	</vbox>

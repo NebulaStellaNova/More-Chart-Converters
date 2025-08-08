@@ -131,6 +131,13 @@ class ChartEditor extends Module {
 				}], (data)->{ daDialog.hide(); onSelectInstrumental(data); }, ()->{});
 			}
 
+			daDialog.findComponent("dialogSkip").onClick = ()->{
+				daDialog.hide();
+				onSelectInstrumental({
+					bytes: "none"
+				});
+			}
+
 			daDialog.findComponent("instBox").onMouseOver = function(_event) {
 			daDialog.findComponent("instBox").alpha = 1;
 				Cursor.cursorMode = CursorMode.Pointer;
@@ -302,7 +309,9 @@ class ChartEditor extends Module {
 
 	function onSelectInstrumental(data) {
 		// Handle Instrumental
-		instrumentalBytes = data.bytes;
+		if (data.bytes != "none") {
+			instrumentalBytes = data.bytes;
+		}
 
 		var state:ChartEditorState = FlxG.state;
 
@@ -391,7 +400,9 @@ class ChartEditor extends Module {
 		var jsonPath = "mods/" + folder + "/data/songs/" + songID + "/" + songID + "-";
 		var oggPath = "mods/" + folder + "/songs/" + songID + "/";
 
-		FileUtil.writeBytesToPath(oggPath + "Inst.ogg", instrumentalBytes);
+		if (instrumentalBytes != null) {
+			FileUtil.writeBytesToPath(oggPath + "Inst.ogg", instrumentalBytes);
+		}
 
 		if (opponentVocalBytes == null) {
 			songMeta.playData.characters.opponentVocals = [];
